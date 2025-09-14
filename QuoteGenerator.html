@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspirational Quote Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background-color: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 28px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            border-radius: 2px;
+        }
+        
+        .quote-box {
+            margin: 30px 0;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #f9f9f9;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .quote-text {
+            font-size: 22px;
+            line-height: 1.6;
+            color: #444;
+            margin-bottom: 15px;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+        
+        .quote-author {
+            text-align: right;
+            font-size: 18px;
+            font-style: italic;
+            color: #666;
+            margin-top: 15px;
+            transition: opacity 0.3s ease;
+        }
+        
+        .quote-author:before {
+            content: "— ";
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+        }
+        
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 25px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 117, 252, 0.6);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button i {
+            margin-right: 8px;
+        }
+        
+        .twitter-share {
+            background: linear-gradient(to right, #1da1f2, #0d8bd9);
+            box-shadow: 0 5px 15px rgba(29, 161, 242, 0.4);
+        }
+        
+        .twitter-share:hover {
+            box-shadow: 0 8px 20px rgba(29, 161, 242, 0.6);
+        }
+        
+        .quote-icon {
+            font-size: 24px;
+            color: #6a11cb;
+            position: absolute;
+        }
+        
+        .quote-icon:first-child {
+            top: 10px;
+            left: 15px;
+        }
+        
+        .quote-icon:last-child {
+            bottom: 10px;
+            right: 15px;
+            transform: rotate(180deg);
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .quote-text {
+                font-size: 20px;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Inspirational Quote Generator</h1>
+        
+        <div class="quote-box">
+            <i class="fas fa-quote-left quote-icon"></i>
+            <p class="quote-text" id="quote-text">Click the button to generate an inspirational quote!</p>
+            <p class="quote-author" id="quote-author"></p>
+            <i class="fas fa-quote-left quote-icon"></i>
+        </div>
+        
+        <div class="buttons">
+            <button id="new-quote">
+                <i class="fas fa-sync-alt"></i> New Quote
+            </button>
+            <button id="twitter-share" class="twitter-share">
+                <i class="fab fa-twitter"></i> Tweet Quote
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Array of quotes
+        const quotes = [
+            {
+                text: "The only way to do great work is to love what you do.",
+                author: "Steve Jobs"
+            },
+            {
+                text: "Life is what happens when you're busy making other plans.",
+                author: "John Lennon"
+            },
+            {
+                text: "The future belongs to those who believe in the beauty of their dreams.",
+                author: "Eleanor Roosevelt"
+            },
+            {
+                text: "Spread love everywhere you go. Let no one ever come to you without leaving happier.",
+                author: "Mother Teresa"
+            },
+            {
+                text: "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+                author: "Nelson Mandela"
+            },
+            {
+                text: "In the end, it's not the years in your life that count. It's the life in your years.",
+                author: "Abraham Lincoln"
+            },
+            {
+                text: "Life is either a daring adventure or nothing at all.",
+                author: "Helen Keller"
+            },
+            {
+                text: "Many of life's failures are people who did not realize how close they were to success when they gave up.",
+                author: "Thomas Edison"
+            },
+            {
+                text: "You have within you right now, everything you need to deal with whatever the world can throw at you.",
+                author: "Brian Tracy"
+            },
+            {
+                text: "The purpose of our lives is to be happy.",
+                author: "Dalai Lama"
+            },
+            {
+                text: "The purpose of life is a life of purpose.",
+                author: "Robert Byrnev"
+            },
+            {
+                text: "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.",
+                author: "Ralph Waldo Emerson"
+            },
+            {
+                text: "In a gentle way, you can shake the world.",
+                author: "Mahatma Gandhi" 
+            },
+            {
+                text: "You are not a drop in the ocean. You are the entire ocean in a drop.",
+                author: "Rumi" 
+            },
+            {
+                text: "The best way to find yourself is to lose yourself in the service of others.",
+                author: "Mahatma Gandhi" 
+            },
+            {
+                text: "Where the mind is without fear and the head is held high...",
+                author: "Rabindranath Tagore" 
+            },
+
+
+        ];
+
+        // DOM elements
+        const quoteText = document.getElementById('quote-text');
+        const quoteAuthor = document.getElementById('quote-author');
+        const newQuoteBtn = document.getElementById('new-quote');
+        const twitterBtn = document.getElementById('twitter-share');
+
+        // Generate a random quote
+        function getRandomQuote() {
+            // Remove fade-in class for animation
+            quoteText.classList.remove('fade-in');
+            quoteAuthor.classList.remove('fade-in');
+            
+            // Get a random quote from the array
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const quote = quotes[randomIndex];
+            
+            // Update the text and author with a slight delay for animation
+            setTimeout(() => {
+                quoteText.textContent = quote.text;
+                quoteAuthor.textContent = quote.author;
+                
+                // Add fade-in class for animation
+                quoteText.classList.add('fade-in');
+                quoteAuthor.classList.add('fade-in');
+            }, 300);
+        }
+
+        // Tweet the current quote
+        function tweetQuote() {
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent('"' + quoteText.textContent + '" — ' + quoteAuthor.textContent)}`;
+            window.open(twitterUrl, '_blank');
+        }
+
+        // Event listeners
+        newQuoteBtn.addEventListener('click', getRandomQuote);
+        twitterBtn.addEventListener('click', tweetQuote);
+
+        // Generate a quote on page load
+        getRandomQuote();
+    </script>
+</body>
+</html>
