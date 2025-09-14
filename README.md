@@ -18,6 +18,7 @@ The Inspirational Quote Generator is a simple and interactive web application th
 
 ## 📂 File Structure
 ├── index.html # Main HTML file containing internal css
+
 └── README.md # Project documentation
 
 
