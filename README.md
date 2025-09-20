@@ -34,6 +34,8 @@ The Inspirational Quote Generator is a simple and interactive web application th
 - Support for multiple languages.
 - Dark mode feature.
 
+## Live Demo
+https://quotegeneratorsrk.netlify.app/
 
 
-✨ Spread inspiration, one quote at a time!
+# ✨ Spread inspiration, one quote at a time!
